@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heading Count</title>
+    <script>
+        function countH3Headings() {
+            var h3Elements = document.getElementsByTagName('h3');
+            alert('Number of H3 Headings: ' + h3Elements.length);
+        }
+
+        function countH4Headings() {
+            var h4Elements = document.getElementsByTagName('h4');
+            alert('Number of H4 Headings: ' + h4Elements.length);
+        }
+    </script>
+</head>
+<body>
+
+    <h3>Heading 1</h3>
+    <h3>Heading 2</h3>
+    <h3>Heading 3</h3>
+    <h3>Heading 4</h3>
+
+    <h4>Subheading 1</h4>
+    <h4>Subheading 2</h4>
+    <h4>Subheading 3</h4>
+
+    <button onclick="countH3Headings()">Count H3 Headings</button>
+    <button onclick="countH4Headings()">Count H4 Headings</button>
+
+</body>
+</html>
