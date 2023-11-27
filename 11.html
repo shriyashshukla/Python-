@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Registration</title>
+</head>
+<body>
+
+<?php
+// Check if the form is submitted using POST method
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Retrieve and display customer data
+    $customerName = $_POST["customerName"];
+    $aadhaarNumber = $_POST["aadhaarNumber"];
+    $gender = $_POST["gender"];
+    $mobileNumber = $_POST["mobileNumber"];
+
+    echo "<h2>Registration Confirmation</h2>";
+    echo "<p>Customer's Name: $customerName</p>";
+    echo "<p>Aadhaar Number: $aadhaarNumber</p>";
+    echo "<p>Gender: $gender</p>";
+    echo "<p>Mobile Number: $mobileNumber</p>";
+} else {
+?>
+
+    <h2>Customer Registration</h2>
+
+    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+        <label for="customerName">Customer's Name:</label>
+        <input type="text" id="customerName" name="customerName" required><br>
+
+        <label for="aadhaarNumber">12 Digit Aadhaar Number:</label>
+        <input type="text" id="aadhaarNumber" name="aadhaarNumber" pattern="\d{12}" title="Enter a 12-digit Aadhaar number" required><br>
+
+        <label>Gender:</label>
+        <input type="radio" id="male" name="gender" value="Male" required>
+        <label for="male">Male</label>
+        <input type="radio" id="female" name="gender" value="Female" required>
+        <label for="female">Female</label><br>
+
+        <label for="mobileNumber">Mobile Number:</label>
+        <input type="tel" id="mobileNumber" name="mobileNumber" pattern="[0-9]{10}" title="Enter a 10-digit mobile number" required><br>
+
+        <input type="submit" value="Submit">
+    </form>
+
+<?php
+}
+?>
+
+</body>
+</html>
