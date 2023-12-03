@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Actions</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        button {
+            padding: 10px;
+            margin: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<h2>JavaScript Actions</h2>
+
+<div class="container">
+    <button onclick="writeToAlert()">Write to Alert Box</button>
+    <button onclick="writeToDocument()">Write to Document</button>
+
+    <p id="elementContent">Click below to change this content.</p>
+    <button onclick="changeElementContent()">Change Content</button>
+
+    <div id="changeColorElement" style="width: 200px; height: 100px; background-color: lightblue;">
+        Click below to change the background color.
+    </div>
+    <button onclick="changeBackgroundColor()">Change Background Color</button>
+</div>
+
+<script>
+    // Write to a window alert box
+    function writeToAlert() {
+        alert("Hello, this is a window alert!");
+    }
+
+    // Write to the HTML document
+    function writeToDocument() {
+        document.write("This is written directly to the document!");
+    }
+
+    // Change content of an HTML element
+    function changeElementContent() {
+        var element = document.getElementById('elementContent');
+        element.innerHTML = "Content changed!";
+    }
+
+    // Change background color of an HTML element
+    function changeBackgroundColor() {
+        var element = document.getElementById('changeColorElement');
+        element.style.backgroundColor = getRandomColor();
+    }
+
+    // Helper function to generate a random color
+    function getRandomColor() {
+        var letters = '0123456789ABCDEF';
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+</script>
+
+</body>
+</html>
