@@ -15,5 +15,13 @@ if( x && y ){
 }   
         
 if( x || z ){
-  console.log("Code runs");  // This block runs because x || y returns 220(Truthy)
+  console.log("Code runs because it a true");  // This block runs because x || y returns 220(Truthy)
 }
+
+if( x && z ){
+    console.log("Code do not runs");  
+  }
+
+  if( y && z ){
+    console.log("Code do not runs");  
+  }
