@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Rock Paper Scissors</title>
+    <style>
+        body{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            align-content: center;
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        p {
+            margin-bottom: 1rem;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            border: 2px solid #000;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        button:hover {
+            background-color: #ddd;
+            transform: scale(1.1);
+        }
+        .score {
+            margin: 20px 0;
+            font-size: 1.2rem;
+        }
+        .message {
+            margin: 20px 0;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .message.animate {
+            animation: pop 0.5s ease-in-out;
+        }
+        @keyframes pop {
+            0% { transform: scale(0.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .icons {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .icons img {
+            width: 50px;
+            height: 50px;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Rock, Paper, Scissors</h1>
+    <p>Select either rock, paper, or scissors and see if you can beat the computer!</p>
+    <p><strong>Remember:</strong> “Rock breaks scissors, scissors cuts paper, paper covers rock.”</p>
+    <div class='score'>Player: [ 0 ] Computer: [ 0 ]</div>
+    <div class='message'></div>
+    <button type='button'>Rock</button>
+    <button type='button'>Paper</button>
+    <button type='button'>Scissors</button>
+    <div class="icons">
+        <img src="rock.png" alt="Rock" id="rock-icon">
+        <img src="paper.png" alt="Paper" id="paper-icon">
+        <img src="scissors.png" alt="Scissors" id="scissors-icon">
+    </div>
+    <script>
+        const message = document.querySelector('.message');
+        const score = document.querySelector('.score');
+        const buttons = document.querySelectorAll('button');
+        const winnerScores = [0,0];
+        const rockIcon = document.getElementById('rock-icon');
+        const paperIcon = document.getElementById('paper-icon');
+        const scissorsIcon = document.getElementById('scissors-icon');
+
+        //add event listeners to buttons
+        for ( let i = 0 ; i < buttons.length ; i++){
+            buttons[i].addEventListener('click', playGame);
+        }
+
+        function playGame(e){
+            //setup player's selection
+            let playerSelection = e.target.innerText;
+            //setup a random number to select for computer
+            //selects a number between 0 and 1 (1 not-inclusive)
+            let computerSelection = Math.random();
+
+            //if computerSelection is less than .34, computer selects Rock
+            if (computerSelection < .34){
+                computerSelection = 'Rock';
+            } else if (computerSelection <= .67){
+                computerSelection = 'Paper';
+            } else {
+                computerSelection = 'Scissors';
+            }
+            
+            //setup a function to compare winners and return result
+            let result = checkWinner(playerSelection, computerSelection);
+
+            //output scores to the DOM
+            if (result === 'Player'){
+                result += ' wins!';
+                //update score
+                winnerScores[0]++;
+            }
+
+            if (result === 'Computer'){
+                result += ' wins!';
+                winnerScores[1]++;
+            }
+
+            if (result === 'Draw'){
+                result += '. It\'s a tie!'
+            }
+
+            //output score into Score DIV
+            score.innerHTML = 'Player: [ ' + winnerScores[0]+ ' ] Computer: [ ' + winnerScores[1] + ' ]';
+
+            //output player and computer's selections
+            messenger('Player: <strong>' + playerSelection + '</strong> Computer: <strong>' + computerSelection + '</strong><br>' + result);
+
+            // Animate the message
+            message.classList.remove('animate');
+            void message.offsetWidth; // trigger reflow
+            message.classList.add('animate');
+
+            // Update the icons
+            updateIcons(playerSelection, computerSelection);
+        }
+
+        function messenger(selectionMessage){
+            message.innerHTML = selectionMessage;
+        }
+
+        function checkWinner(player, computer){
+            if (player === computer){
+                return 'Draw';
+            }
+
+            if (player === 'Rock'){
+                if(computer === 'Paper'){
+                    return 'Computer';
+                } else {
+                    return 'Player';
+                }
+            }
+
+            if (player === 'Paper'){
+                if (computer === 'Scissors'){
+                    return 'Computer';
+                } else {
+                    return 'Player';
+                }
+            }
+
+            if (player === 'Scissors'){
+                if (computer === 'Rock'){
+                    return 'Computer';
+                } else {
+                    return 'Player';
+                }
+            }
+        }
+
+        function updateIcons(player, computer) {
+            rockIcon.style.opacity = 0.2;
+            paperIcon.style.opacity = 0.2;
+            scissorsIcon.style.opacity = 0.2;
+
+            if (player === 'Rock') rockIcon.style.opacity = 1;
+            if (player === 'Paper') paperIcon.style.opacity = 1;
+            if (player === 'Scissors') scissorsIcon.style.opacity = 1;
+
+            if (computer === 'Rock') rockIcon.style.borderColor = 'red';
+            if (computer === 'Paper') paperIcon.style.borderColor = 'red';
+            if (computer === 'Scissors') scissorsIcon.style.borderColor = 'red';
+        }
+    </script>
+</body>
+</html>
