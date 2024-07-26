@@ -41,3 +41,12 @@ JsUser.greeting2= function(){
 }
 
 console.log(JsUser.greeting2());
+
+
+//if object is empty 
+
+const emptyObj={}
+
+if (Object.keys(emptyObj).length === 0){
+    console.log('Object is empty');
+}
